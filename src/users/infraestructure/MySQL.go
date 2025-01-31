@@ -82,18 +82,30 @@ func (mysql *MySQL) DeleteUser(id int) error {
 
 }
 
-func (mysql *MySQL) UpdateUser( id int,user domain.User) error {
+func (mysql *MySQL) UpdateUser(id int, user domain.User) error {
+	// Verificar si el ID existe
+	var count int
+	query := "SELECT COUNT(*) FROM users WHERE id = ?"
+	err := mysql.db.QueryRow(query, id).Scan(&count)
+	if err != nil {
+		return fmt.Errorf("error al verificar el ID de usuario: %v", err)
+	}
 
+	// Si no existe el usuario con el ID proporcionado, devolver error
+	if count == 0 {
+		return fmt.Errorf("no se encontró el usuario con ID %d", id)
+	}
+
+	// Proceder a actualizar el usuario
 	userName := user.Name
 	emailUser := user.Email
 
-	query := "UPDATE users SET name = ?, email =? WHERE id = ? "
-
-	_, err := mysql.db.Exec(query, userName, emailUser, id)
+	updateQuery := "UPDATE users SET name = ?, email = ? WHERE id = ?"
+	_, err = mysql.db.Exec(updateQuery, userName, emailUser, id)
 	if err != nil {
 		return fmt.Errorf("error actualizando el usuario con ID %d: %v", id, err)
 	}
 
 	return nil
-
 }
+
