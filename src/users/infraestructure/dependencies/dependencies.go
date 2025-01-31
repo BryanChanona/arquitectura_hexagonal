@@ -26,3 +26,7 @@ func GetCreateUserController () *controller.CreateUserController{
 	caseCreateUser := application.NewCreateUser(&mySQL)
 	return controller.NewCreateUserController(caseCreateUser)
 }
+func GetViewUsersController()*controller.ViewUsersController{
+	caseViewUsers := application.NewViewUsers(&mySQL)
+	return controller.NewViewUsersController(caseViewUsers)
+}

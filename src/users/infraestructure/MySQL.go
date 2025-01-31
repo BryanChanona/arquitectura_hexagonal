@@ -35,7 +35,7 @@ func (mysql *MySQL)SaveUser(user domain.User) (err error){
 }
 
 
-func (mysql *MySQL) ListUsers()([]domain.User,error){
+func (mysql *MySQL) GetAll()([]domain.User,error){
 	
 	data, err := mysql.db.Query("SELECT * FROM users")
 
