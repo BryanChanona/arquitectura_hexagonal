@@ -77,6 +77,32 @@ func (mysql *MySQL) DeleteBook(id int) error {
 	fmt.Println("Libro eliminado correctamente")
 	return nil
 }
+func (mysql *MySQL) UpdateBook(id int, book domain.Book) error {
+	// Verificar si el libro con el ID dado existe
+	var count int
+	query := "SELECT COUNT(*) FROM books WHERE id = ?"
+	err := mysql.db.QueryRow(query, id).Scan(&count)
+	if err != nil {
+		return fmt.Errorf("error verificando si el libro existe con ID %d: %v", id, err)
+	}
+	if count == 0 {
+		return fmt.Errorf("no se encontró el libro con ID %d", id)
+	}
+
+	// Proceder con la actualización si el libro existe
+	bookTitle := book.GetTitle()
+	bookAuthor := book.GetAuthor()
+
+	updateQuery := "UPDATE books SET title = ?, author = ? WHERE id = ?"
+	_, err = mysql.db.Exec(updateQuery, bookTitle, bookAuthor, id)
+	if err != nil {
+		return fmt.Errorf("error actualizando el libro con ID %d: %v", id, err)
+	}
+
+	return nil
+}
+
+
 
 
 

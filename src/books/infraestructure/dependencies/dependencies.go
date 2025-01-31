@@ -34,4 +34,9 @@ func GetDeleteBookController() *controller.DeleteBookController {
 	caseDeleteBook := application.NewDeleteBook(&mySQL)
 	return controller.NewDeleteBookController(caseDeleteBook)
 }
+func GetUpdateBookController() *controller.UpdateBookController {
+	caseUpdateBook := application.NewUpdateBook(&mySQL)
+	return controller.NewUpdateBookController(caseUpdateBook)
+}
+
 
