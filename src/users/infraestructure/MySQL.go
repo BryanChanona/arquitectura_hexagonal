@@ -48,7 +48,7 @@ func (mysql *MySQL) GetAll()([]domain.User,error){
 	// Itera sobre todas las filas devueltas por la consulta
 	for data.Next(){
 		var user domain.User
-		err := data.Scan(&user.ID,user.GetName(),user.Email)
+		err := data.Scan(&user.ID,&user.Name,&user.Email)
 		if err != nil {
 			return nil, err
 		}
