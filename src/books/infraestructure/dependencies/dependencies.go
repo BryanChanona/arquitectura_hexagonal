@@ -30,3 +30,8 @@ func GetViewBooksController() *controller.ViewBooksController {
 	caseViewBooks := application.NewViewBooks(&mySQL)
 	return controller.NewViewBooksController(caseViewBooks)
 }
+func GetDeleteBookController() *controller.DeleteBookController {
+	caseDeleteBook := application.NewDeleteBook(&mySQL)
+	return controller.NewDeleteBookController(caseDeleteBook)
+}
+
