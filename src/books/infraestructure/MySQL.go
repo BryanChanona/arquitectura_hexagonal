@@ -2,6 +2,7 @@ package infraestructure
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/BryanChanona/arquitectura_hexagonal.git/src/books/domain"
 )
@@ -58,5 +59,24 @@ func (mysql *MySQL) GetAll() ([]domain.Book, error) {
 	}
 	return books, nil
 }
+func (mysql *MySQL) DeleteBook(id int) error {
+	query := "DELETE FROM books WHERE id = ?"
+	result, err := mysql.db.Exec(query, id)
+	if err != nil {
+		return err
+	}
+	// Verificar si realmente se eliminó algún registro
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("no se encontró el libro con ID %d", id)
+	}
+	fmt.Println("Libro eliminado correctamente")
+	return nil
+}
+
 
 
