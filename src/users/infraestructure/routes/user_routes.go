@@ -10,8 +10,10 @@ func UserRouter(router *gin.Engine){
 	createUserController := dependencies.GetCreateUserController().Execute
 	viewUsersController := dependencies.GetViewUsersController().Execute
 	deleteUserController := dependencies.GetDeleteUserController().Execute
+	updateUserController := dependencies.GetUpdateUserController().Execute
 
 	routes.POST("/",createUserController)
 	routes.GET("/",viewUsersController)
 	routes.DELETE("/:id",deleteUserController)
+	routes.PUT("/:id", updateUserController)
 }
