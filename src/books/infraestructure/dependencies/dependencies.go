@@ -26,3 +26,7 @@ func GetCreateBookController() *controller.CreateBookController {
 	caseCreateBook := application.NewCreateBook(&mySQL)
 	return controller.NewCreateBookController(caseCreateBook)
 }
+func GetViewBooksController() *controller.ViewBooksController {
+	caseViewBooks := application.NewViewBooks(&mySQL)
+	return controller.NewViewBooksController(caseViewBooks)
+}
