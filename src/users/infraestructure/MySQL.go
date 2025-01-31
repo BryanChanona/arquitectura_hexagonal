@@ -7,37 +7,36 @@ import (
 	"github.com/BryanChanona/arquitectura_hexagonal.git/src/users/domain"
 )
 
-//Representa una conexión a la base de datos.
+// Representa una conexión a la base de datos.
 type MySQL struct {
 	db *sql.DB
 }
-//Usamos esta función para crear una instancia de la estructura MySQL
-func NewMySQL ( db *sql.DB) *MySQL{
-	return &MySQL{db:db}
+
+// Usamos esta función para crear una instancia de la estructura MySQL
+func NewMySQL(db *sql.DB) *MySQL {
+	return &MySQL{db: db}
 }
 
-
-func (mysql *MySQL)SaveUser(user domain.User) (err error){
+func (mysql *MySQL) SaveUser(user domain.User) (err error) {
 	sentenciaPreparada, err := mysql.db.Prepare("INSERT INTO users ( name, email) VALUES (?,?)")
 
-	if err != nil{
+	if err != nil {
 		return err
 	}
 
 	defer sentenciaPreparada.Exec()
 
-	_,err = sentenciaPreparada.Exec(user.GetName(),user.GetEmail())
+	_, err = sentenciaPreparada.Exec(user.GetName(), user.GetEmail())
 
 	if err != nil {
 		return err
 	}
 	return nil
-	
+
 }
 
+func (mysql *MySQL) GetAll() ([]domain.User, error) {
 
-func (mysql *MySQL) GetAll()([]domain.User,error){
-	
 	data, err := mysql.db.Query("SELECT * FROM users")
 
 	if err != nil {
@@ -47,9 +46,9 @@ func (mysql *MySQL) GetAll()([]domain.User,error){
 
 	var users []domain.User
 	// Itera sobre todas las filas devueltas por la consulta
-	for data.Next(){
+	for data.Next() {
 		var user domain.User
-		err := data.Scan(&user.ID,&user.Name,&user.Email)
+		err := data.Scan(&user.ID, &user.Name, &user.Email)
 		if err != nil {
 			return nil, err
 		}
@@ -62,7 +61,7 @@ func (mysql *MySQL) GetAll()([]domain.User,error){
 
 }
 
-func (mysql *MySQL) DeleteUser(id int)(error){
+func (mysql *MySQL) DeleteUser(id int) error {
 
 	query := "DELETE FROM users WHERE id = ?"
 	result, err := mysql.db.Exec(query, id)
@@ -83,5 +82,18 @@ func (mysql *MySQL) DeleteUser(id int)(error){
 
 }
 
+func (mysql *MySQL) UpdateUser( id int,user domain.User) error {
 
+	userName := user.Name
+	emailUser := user.Email
 
+	query := "UPDATE users SET name = ?, email =? WHERE id = ? "
+
+	_, err := mysql.db.Exec(query, userName, emailUser, id)
+	if err != nil {
+		return fmt.Errorf("error actualizando el usuario con ID %d: %v", id, err)
+	}
+
+	return nil
+
+}

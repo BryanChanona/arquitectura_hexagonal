@@ -34,3 +34,7 @@ func GetDeleteUserController()*controller.DeleteUserController{
 	caseDeleteUser := application.NewDeleteUser(&mySQL)
 	return controller.NewDeleteUserController(caseDeleteUser)
 }
+func GetUpdateUserController()*controller.UpdateUserController{
+	caseUpdateUser := application.NewUpdateUser(&mySQL)
+	return controller.NewUpdateController(caseUpdateUser)
+}
