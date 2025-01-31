@@ -4,12 +4,20 @@ import (
 	dependenciesUser "github.com/BryanChanona/arquitectura_hexagonal.git/src/users/infraestructure/dependencies"
 	userRoutesResource "github.com/BryanChanona/arquitectura_hexagonal.git/src/users/infraestructure/routes"
 	"github.com/gin-gonic/gin"
+	dependenciesBook "github.com/BryanChanona/arquitectura_hexagonal.git/src/books/infraestructure/dependencies"
+	bookRoutesResource "github.com/BryanChanona/arquitectura_hexagonal.git/src/books/infraestructure/routes"
 )
 
 func main() {
+	r := gin.Default()
+	//User
 		dependenciesUser.Init()
-		r := gin.Default()
 		userRoutesResource.UserRouter(r)
-		r.Run()
+	
+	//Book
+		dependenciesBook.Init()
+		bookRoutesResource.BookRouter(r)
+		
 
+		r.Run()
 }
