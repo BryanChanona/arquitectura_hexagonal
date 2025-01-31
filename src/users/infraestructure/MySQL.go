@@ -35,3 +35,31 @@ func (mysql *MySQL)SaveUser(user domain.User) (err error){
 }
 
 
+func (mysql *MySQL) ListUsers()([]domain.User,error){
+	
+	data, err := mysql.db.Query("SELECT * FROM users")
+
+	if err != nil {
+		return nil, err
+	}
+	defer data.Close()
+
+	var users []domain.User
+	// Itera sobre todas las filas devueltas por la consulta
+	for data.Next(){
+		var user domain.User
+		err := data.Scan(&user.ID,user.GetName(),user.Email)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+	if err := data.Err(); err != nil {
+		return nil, err
+	}
+	return users, nil
+
+}
+
+
+
