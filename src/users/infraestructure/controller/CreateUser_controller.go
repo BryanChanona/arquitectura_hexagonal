@@ -19,7 +19,7 @@ func NewCreateUserController(useCase *application.CreateUser) *CreateUserControl
 }
 
 
-func (controller *CreateUserController) CreateProduct(ctx *gin.Context){
+func (controller *CreateUserController) Execute(ctx *gin.Context){
 	var user domain.User
 
 	if err := ctx.ShouldBindJSON(&user); err != nil{

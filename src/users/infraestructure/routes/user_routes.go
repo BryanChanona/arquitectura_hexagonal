@@ -7,7 +7,7 @@ import (
 
 func UserRouter(router *gin.Engine){
 	routes := router.Group("/users")
-	createUserController := dependencies.GetCreateUserController().CreateProduct
+	createUserController := dependencies.GetCreateUserController().Execute
 
 	routes.POST("/",createUserController)
 }
