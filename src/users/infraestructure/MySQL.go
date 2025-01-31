@@ -2,6 +2,7 @@ package infraestructure
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/BryanChanona/arquitectura_hexagonal.git/src/users/domain"
 )
@@ -58,6 +59,27 @@ func (mysql *MySQL) GetAll()([]domain.User,error){
 		return nil, err
 	}
 	return users, nil
+
+}
+
+func (mysql *MySQL) DeleteUser(id int)(error){
+
+	query := "DELETE FROM users WHERE id = ?"
+	result, err := mysql.db.Exec(query, id)
+	if err != nil {
+		return err
+	}
+	// Verificar si realmente se eliminó algún registro
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("no se encontró el usuario con ID %d", id)
+	}
+	fmt.Println("Producto eliminado correctamente")
+	return nil
 
 }
 
