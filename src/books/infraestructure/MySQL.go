@@ -35,4 +35,28 @@ func (mysql *MySQL) SaveBook(book domain.Book) (err error) {
 	}
 	return nil
 }
+func (mysql *MySQL) GetAll() ([]domain.Book, error) {
+	data, err := mysql.db.Query("SELECT * FROM books")
+
+	if err != nil {
+		return nil, err
+	}
+	defer data.Close()
+
+	var books []domain.Book
+	// Itera sobre todas las filas devueltas por la consulta
+	for data.Next() {
+		var book domain.Book
+		err := data.Scan(&book.ID, &book.Title, &book.Author)
+		if err != nil {
+			return nil, err
+		}
+		books = append(books, book)
+	}
+	if err := data.Err(); err != nil {
+		return nil, err
+	}
+	return books, nil
+}
+
 
