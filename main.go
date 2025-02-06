@@ -1,23 +1,27 @@
 package main
 
 import (
+	dependenciesBook "github.com/BryanChanona/arquitectura_hexagonal.git/src/books/infraestructure/dependencies"
+	bookRoutesResource "github.com/BryanChanona/arquitectura_hexagonal.git/src/books/infraestructure/routes"
+	"github.com/BryanChanona/arquitectura_hexagonal.git/src/helpers"
 	dependenciesUser "github.com/BryanChanona/arquitectura_hexagonal.git/src/users/infraestructure/dependencies"
 	userRoutesResource "github.com/BryanChanona/arquitectura_hexagonal.git/src/users/infraestructure/routes"
 	"github.com/gin-gonic/gin"
-	dependenciesBook "github.com/BryanChanona/arquitectura_hexagonal.git/src/books/infraestructure/dependencies"
-	bookRoutesResource "github.com/BryanChanona/arquitectura_hexagonal.git/src/books/infraestructure/routes"
 )
 
 func main() {
-	r := gin.Default()
-	//User
-		dependenciesUser.Init()
-		userRoutesResource.UserRouter(r)
-	
-	//Book
-		dependenciesBook.Init()
-		bookRoutesResource.BookRouter(r)
-		
+	dependenciesUser.Init()
+	dependenciesBook.Init()
 
-		r.Run()
+
+	r := gin.Default()
+
+	helpers.InitCORS(r)
+	
+	// Configurar rutas
+	
+	userRoutesResource.UserRouter(r)
+	bookRoutesResource.BookRouter(r)
+
+	r.Run()  // Especifica explícitamente el puerto si es necesario
 }
