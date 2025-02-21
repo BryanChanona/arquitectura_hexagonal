@@ -38,3 +38,7 @@ func GetUpdateUserController()*controller.UpdateUserController{
 	caseUpdateUser := application.NewUpdateUser(&mySQL)
 	return controller.NewUpdateController(caseUpdateUser)
 }
+func GetViewUserByIdController()* controller.ViewUserByIdController{
+	caseViewUserById := application.NewViewUserById(&mySQL)
+	return controller.NewViewUserByIdController(caseViewUserById)
+}
