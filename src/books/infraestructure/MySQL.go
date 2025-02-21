@@ -102,6 +102,23 @@ func (mysql *MySQL) UpdateBook(id int, book domain.Book) error {
 	return nil
 }
 
+func (mysql *MySQL) GetById(id int)(domain.Book, error){
+	var bookById domain.Book
+	query:= "SELECT id, title, author FROM books WHERE id =?"
+
+	row := mysql.db.QueryRow(query,id)
+	
+	err := row.Scan(&bookById.ID,&bookById.Title,&bookById.Author)
+
+	if err != nil {
+		if err == sql.ErrNoRows{
+			return bookById, fmt.Errorf("book con ID %d no encontrado", id)
+		}
+		return bookById, err
+	}
+	return bookById, nil
+}
+
 
 
 

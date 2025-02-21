@@ -38,5 +38,10 @@ func GetUpdateBookController() *controller.UpdateBookController {
 	caseUpdateBook := application.NewUpdateBook(&mySQL)
 	return controller.NewUpdateBookController(caseUpdateBook)
 }
+func GetViewBookByIdController()*controller.ViewBookByIdController{
+	caseViewById:= application.NewViewProductById(&mySQL)
+	return controller.NewViewbyIdController(caseViewById)
+}
+
 
 
