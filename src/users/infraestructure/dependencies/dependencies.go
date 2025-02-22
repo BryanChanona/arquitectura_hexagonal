@@ -16,7 +16,7 @@ var (
 func Init(){
 	db, err := helpers.ConnectDB()
 	if err != nil {
-		log.Fatalf("Error al conectar a la base de datos: %v", err)
+		log.Fatalf("Error al conectar a la base de datossssss: %v", err)
 	}
 	mySQL =*infraestructure.NewMySQL(db)
 
