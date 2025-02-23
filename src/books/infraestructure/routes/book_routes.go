@@ -12,7 +12,7 @@ func BookRouter(router *gin.Engine) {
 	deleteBookController := dependencies.GetDeleteBookController().Execute
 	updateBookController := dependencies.GetUpdateBookController().Execute
 	viewBookbyIdController := dependencies.GetViewBookByIdController().Execute
-
+	shortPolling := dependencies.GetPollingBookController().Execute
 
 
 	routes.POST("/", createBookController)
@@ -20,4 +20,6 @@ func BookRouter(router *gin.Engine) {
 	routes.DELETE("/:id",deleteBookController)
 	routes.PUT("/:id",updateBookController)
 	routes.GET("/:id",viewBookbyIdController)
+	routes.GET("/shortPolling",shortPolling)
+
 }
