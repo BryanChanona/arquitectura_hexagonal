@@ -5,4 +5,5 @@ type Ibook interface {
 	GetAll() ([]Book, error)
 	DeleteBook(id int) error
 	UpdateBook(id int, book Book) error
+	GetById(id int)(Book, error)
 }

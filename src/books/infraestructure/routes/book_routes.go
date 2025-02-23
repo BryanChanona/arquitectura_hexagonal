@@ -11,11 +11,18 @@ func BookRouter(router *gin.Engine) {
 	viewBooksController := dependencies.GetViewBooksController().Execute
 	deleteBookController := dependencies.GetDeleteBookController().Execute
 	updateBookController := dependencies.GetUpdateBookController().Execute
+	viewBookbyIdController := dependencies.GetViewBookByIdController().Execute
+	shortPolling := dependencies.GetPollingBookController().ShortPollingExecute
+	longpolling := dependencies.GetPollingBookController().LongPolling
+	
 
 
 	routes.POST("/", createBookController)
 	routes.GET("/",viewBooksController)
 	routes.DELETE("/:id",deleteBookController)
 	routes.PUT("/:id",updateBookController)
-	
+	routes.GET("/:id",viewBookbyIdController)
+	routes.GET("/shortPolling",shortPolling)
+	routes.GET("/longPolling",longpolling)
+
 }
