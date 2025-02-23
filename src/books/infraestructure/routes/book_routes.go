@@ -14,10 +14,10 @@ func BookRouter(router *gin.Engine) {
 	viewBookbyIdController := dependencies.GetViewBookByIdController().Execute
 
 
+
 	routes.POST("/", createBookController)
 	routes.GET("/",viewBooksController)
 	routes.DELETE("/:id",deleteBookController)
 	routes.PUT("/:id",updateBookController)
 	routes.GET("/:id",viewBookbyIdController)
-	
 }

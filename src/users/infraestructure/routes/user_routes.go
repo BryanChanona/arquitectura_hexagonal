@@ -11,6 +11,7 @@ func UserRouter(router *gin.Engine){
 	viewUsersController := dependencies.GetViewUsersController().Execute
 	deleteUserController := dependencies.GetDeleteUserController().Execute
 	updateUserController := dependencies.GetUpdateUserController().Execute
+	viewUserByIdController := dependencies.GetViewUserByIdController().Execute
 
 	shortPolling := dependencies.GetPollingUserController().Execute
 
@@ -19,4 +20,5 @@ func UserRouter(router *gin.Engine){
 	routes.DELETE("/:id",deleteUserController)
 	routes.PUT("/:id", updateUserController)
 	routes.GET("/shortPolling",shortPolling)
+	routes.GET("/:id",viewUserByIdController)
 }

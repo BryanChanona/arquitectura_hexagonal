@@ -5,4 +5,6 @@ type Iuser interface {
 	GetAll()([]User,error)
 	DeleteUser(id int) error
 	UpdateUser(id int,user User) error
+	GetById(id int)(User, error)
+
 }

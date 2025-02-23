@@ -108,4 +108,26 @@ func (mysql *MySQL) UpdateUser(id int, user domain.User) error {
 
 	return nil
 }
+func (mysql *MySQL) GetById(id int) (domain.User, error) {
+	var userById domain.User
+	query := "SELECT id, name, email FROM users WHERE id = ?"
+
+	// Ejecutar la consulta
+	row := mysql.db.QueryRow(query, id)
+
+	// Escanear los resultados de la consulta en el objeto userById
+	err := row.Scan(&userById.ID, &userById.Name, &userById.Email)
+
+	// Manejo de errores
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return userById, fmt.Errorf("usuario con ID %d no encontrado", id)
+		}
+		return userById, err
+	}
+
+	// Si no hubo errores, retornar el usuario encontrado
+	return userById, nil
+}
+
 

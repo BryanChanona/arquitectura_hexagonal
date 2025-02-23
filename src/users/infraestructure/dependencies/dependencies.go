@@ -41,3 +41,7 @@ func GetUpdateUserController()*controller.UpdateUserController{
 func GetPollingUserController() *controller.UserPollingController{
 	return controller.NewUserPollingController(&mySQL)
 }
+func GetViewUserByIdController()* controller.ViewUserByIdController{
+	caseViewUserById := application.NewViewUserById(&mySQL)
+	return controller.NewViewUserByIdController(caseViewUserById)
+}
