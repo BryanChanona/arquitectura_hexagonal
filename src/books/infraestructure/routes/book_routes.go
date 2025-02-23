@@ -12,7 +12,8 @@ func BookRouter(router *gin.Engine) {
 	deleteBookController := dependencies.GetDeleteBookController().Execute
 	updateBookController := dependencies.GetUpdateBookController().Execute
 	viewBookbyIdController := dependencies.GetViewBookByIdController().Execute
-	shortPolling := dependencies.GetPollingBookController().Execute
+	shortPolling := dependencies.GetPollingBookController().ShortPollingExecute
+	
 
 
 	routes.POST("/", createBookController)
