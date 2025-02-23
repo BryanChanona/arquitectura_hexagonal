@@ -14,6 +14,7 @@ func UserRouter(router *gin.Engine){
 	viewUserByIdController := dependencies.GetViewUserByIdController().Execute
 
 	shortPolling := dependencies.GetPollingUserController().Execute
+	longPolling := dependencies.GetPollingUserController().LongPolling
 
 	routes.POST("/",createUserController)
 	routes.GET("/",viewUsersController)
@@ -21,4 +22,5 @@ func UserRouter(router *gin.Engine){
 	routes.PUT("/:id", updateUserController)
 	routes.GET("/shortPolling",shortPolling)
 	routes.GET("/:id",viewUserByIdController)
+	routes.GET("/longPolling",longPolling)
 }
