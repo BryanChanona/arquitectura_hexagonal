@@ -24,7 +24,7 @@ func NewUserPollingController(repo *infraestructure.MySQL) *UserPollingControlle
 func (controller *UserPollingController) Execute(ctx *gin.Context){
 	result, err := controller.repository.GetAll()
 	if err != nil {
-        ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error obteniendo tickets"})
+        ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error obteniendo usuarios"})
         return
     }
 	currentUserCount:= len(result)
