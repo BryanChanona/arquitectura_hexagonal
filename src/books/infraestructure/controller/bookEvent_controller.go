@@ -3,7 +3,6 @@ package controller
 import (
 	"net/http"
 	"sync"
-
 	"github.com/BryanChanona/arquitectura_hexagonal.git/src/books/infraestructure"
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +19,7 @@ func NewBookPollingController(repo *infraestructure.MySQL) *BookPollingControlle
 		lastBookCount: 0,
 	}
 }
-func (controller *BookPollingController) Execute(ctx *gin.Context){
+func (controller *BookPollingController) ShortPollingExecute(ctx *gin.Context){
 	result, err := controller.repository.GetAll()
 	if err != nil {
         ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error obteniendo libros"})
