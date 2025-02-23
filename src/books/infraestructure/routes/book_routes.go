@@ -13,6 +13,7 @@ func BookRouter(router *gin.Engine) {
 	updateBookController := dependencies.GetUpdateBookController().Execute
 	viewBookbyIdController := dependencies.GetViewBookByIdController().Execute
 	shortPolling := dependencies.GetPollingBookController().ShortPollingExecute
+	longpolling := dependencies.GetPollingBookController().LongPolling
 	
 
 
@@ -22,5 +23,6 @@ func BookRouter(router *gin.Engine) {
 	routes.PUT("/:id",updateBookController)
 	routes.GET("/:id",viewBookbyIdController)
 	routes.GET("/shortPolling",shortPolling)
+	routes.GET("/longPolling",longpolling)
 
 }

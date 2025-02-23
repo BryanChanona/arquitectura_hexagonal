@@ -20,7 +20,7 @@ func (e *BookEvent) NewNotifyBook() {
 	for _, ch := range e.listeners {
 		select {
 		case ch <- struct{}{}: // Intenta enviar sin bloquear
-		 default:               // Si ya hay un valor en el buffer, no bloquea
+		default:               // Si ya hay un valor en el buffer, no bloquea
 		}
 	}
 
