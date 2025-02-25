@@ -79,7 +79,7 @@ func (controller *BookPollingController) LongPolling(ctx *gin.Context) {
 				return
 			}
 			controller.mu.Unlock()
-			
+			 
 		}
 	}
 }
