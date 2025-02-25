@@ -42,9 +42,5 @@ func GetViewBookByIdController()*controller.ViewBookByIdController{
 	caseViewById:= application.NewViewProductById(&mySQL)
 	return controller.NewViewbyIdController(caseViewById)
 }
-func GetPollingBookController() *controller.BookPollingController{
-	return controller.NewBookPollingController(&mySQL)
-}
-
 
 
