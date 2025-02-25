@@ -52,15 +52,17 @@ func (controller *UserPollingController) Execute(ctx *gin.Context){
 
 func (controller *UserPollingController) LongPolling(ctx *gin.Context) {
     // Configuramos el timeout de 30 segundos para cada solicitud
-    timeout := time.After(30 * time.Second)
-    ticker := time.Tick(1 * time.Second) // Revisa cada segundo
+    timeout := time.After(15 * time.Second)
+    ticker := time.NewTicker(1 * time.Second) 
+    defer ticker.Stop()
+    // Revisa cada segundo
     for {
         select {
         case <-timeout:
             // Si no hubo cambios en 30 segundos, cerramos la conexión
-            ctx.JSON(http.StatusNoContent, gin.H{"message": "No hubo cambios en el tiempo de espera"})
+            ctx.JSON(http.StatusOK, gin.H{"message": "No hubo cambios en el tiempo de espera"})
             return
-        case <-ticker:
+        case <-ticker.C:
             // Realizamos la consulta a la base de datos
             result, err := controller.repository.GetAll()
             if err != nil {
