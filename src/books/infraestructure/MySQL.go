@@ -14,7 +14,7 @@ type MySQL struct {
 
 // Usamos esta función para crear una instancia de la estructura MySQL
 func NewMySQL(db *sql.DB) *MySQL {
-	return &MySQL{db: db}
+	return &MySQL{db: db} 
 }
 
 func (mysql *MySQL) SaveBook(book domain.Book) (err error) {
